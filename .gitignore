@@ -1,0 +1,11 @@
+*.prototxt
+*.caffemodel
+*.bak
+*.o
+*.pb.cc
+*.pb.h
+*.model
+*.param
+*.sh
+build/
+.vscode/

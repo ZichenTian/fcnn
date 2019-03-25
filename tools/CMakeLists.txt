@@ -1,0 +1,7 @@
+cmake_minimum_required(VERSION 2.8)
+find_package(Protobuf)
+include_directories(${PROTOBUF_INCLUDE_DIR})
+include_directories(${CMAKE_CURRENT_BINARY_DIR})
+protobuf_generate_cpp(CAFFE_PROTO_SRCS CAFFE_PROTO_HDRS caffe.proto)
+add_executable(caffe2fcnn caffe2fcnn.cpp ${CAFFE_PROTO_SRCS} ${CAFFE_PROTO_HDRS})
+target_link_libraries(caffe2fcnn ${PROTOBUF_LIBRARIES})
