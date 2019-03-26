@@ -18,10 +18,8 @@ Convolution::~Convolution() {
 }
 
 int Convolution::loadModel(std::ifstream& fp) {
-    conv_weight = new Blob(kernel, kernel, input_c*output_c);
     fp.read((char*)(conv_weight->getPtr()), conv_weight->size*sizeof(float));
     if(bias) {
-        bias_weight = new Blob(output_c);
         fp.read((char*)(bias_weight->getPtr()), bias_weight->size*sizeof(float));
     }
 }
@@ -57,6 +55,11 @@ std::vector<std::vector<int>> Convolution::inferShape(std::vector<std::vector<in
     output_w = (padded_w-kernel)/stride+1;
     std::vector<int> top_shape {output_h, output_w, output_c};
     std::vector<std::vector<int>> top_shapes {top_shape};
+    // prepare weight blob
+    conv_weight = new Blob(kernel, kernel, input_c*output_c);
+    if(bias) {
+        bias_weight = new Blob(output_c);
+    }
     return top_shapes;
 }
 

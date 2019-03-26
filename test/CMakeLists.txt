@@ -1,4 +1,5 @@
 cmake_minimum_required(VERSION 2.8)
-find_package(OpenCV REQUIRED)
-add_executable(fcnn test_main.cpp)
-target_link_libraries(fcnn lib_src ${OpenCV_LIBS})
+add_executable(test_convolution test_convolution.cpp)
+target_link_libraries(test_convolution lib_src)
+add_executable(test_maxpool test_maxpool.cpp)
+target_link_libraries(test_maxpool lib_src)

@@ -42,19 +42,27 @@ static inline int argmax(fcnn::Blob& src) {
     return max_index;
 }
 
-void test_resnet_50(void) {
+int main(int argc, char** argv) {
+    if(argc != 4) {
+        std::cerr << "Usage: ./classfication param model img" << std::endl;
+        return 1;
+    }
+    const char* param_file = argv[1];
+    const char* model_file = argv[2];
+    const char* img_file = argv[3];
+
     fcnn::Net net;
     std::cout << "start to load param" << std::endl;
-    net.loadParam("/home/tianzichen/Working/fcnn/build/tools/123.param");
+    net.loadParam(param_file);
     std::cout << "start to load model" << std::endl;
-    net.loadModel("/home/tianzichen/Working/fcnn/build/tools/123.model");
-    // net.printNetInfo();
+    net.loadModel(model_file);
+    net.printNetInfo();
 
     fcnn::Blob data_blob = net.getBlob("data");
     std::cout << "filling the data blob" << std::endl;
-    if(fill_imgdata("./test.jpg", data_blob) == false) {
+    if(fill_imgdata(img_file, data_blob) == false) {
         std::cerr << "read image failed!" << std::endl;
-        return;
+        return 1;
     }
     std::cout << "start to forward" << std::endl;
     net.forward();
@@ -62,36 +70,5 @@ void test_resnet_50(void) {
 
     fcnn::Blob result_blob = net.getBlob("prob");
     std::cout << argmax(result_blob) << std::endl;
-    return;
-}
-
-void test_load_param(void) {
-    fcnn::Net net;
-    std::cout << "start to load param" << std::endl;
-    net.loadParam("/home/tianzichen/Working/fcnn/build/tools/123.param");
-    std::cout << "start to load model" << std::endl;
-    net.loadModel("/home/tianzichen/Working/fcnn/build/tools/123.model");
-    net.printNetInfo();
-    
-    fcnn::Blob data_blob = net.getBlob("data");
-    fcnn::Blob conv1_blob = net.getBlob("conv1");
-    fcnn::Blob pool1_blob = net.getBlob("pool1");
-
-    float* input_data = new float[data_blob.size];
-    for(int i = 0; i < data_blob.size; i++) {
-        input_data[i] = i<data_blob.size/2?-1:1;
-    }
-    data_blob.fill(input_data, data_blob.size);
-
-    net.forward();
-    return;
-    std::cout << data_blob.printData() << std::endl;
-    std::cout << conv1_blob.printData() << std::endl;
-    std::cout << pool1_blob.printData() << std::endl;
-}
-
-int main() {
-    // test_load_param();
-    test_resnet_50();
     return 0;
 }
