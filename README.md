@@ -43,7 +43,7 @@
 ## 已完成功能
 
 * 完成了基本算子
-  * convolution：六重for循环233，不支持group和depthwise
+  * convolution：六重for循环；im2col+gemm(三重for循环)。不支持group和depthwise
   * element_wise：目前仅支持sum
   * global_average_pooling
   * inner_product
@@ -61,11 +61,16 @@
 ## 开发计划
 
 * 算子优化
-  * convolution im2col(马上做)
+  * ~~convolution im2col~~
+  * gemm openblas
+  * gemm my implement
   * convolution winograd
   * maxpool neon
 * 算子补充
-* 测试代码开发(马上做)
+  * depthwise conv
+  * group conv
+  * shuffle conv
+* 测试代码开发
 * blob微调：静态内存，不需要智能指针；增加reshape
 * 支持onnx
 * 图优化(大坑)

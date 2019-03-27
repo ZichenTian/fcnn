@@ -3,6 +3,8 @@
 
 #include "layer.h"
 
+#define IM2COL_CONV 1
+
 namespace fcnn {
 
 class Convolution : public Layer {
@@ -28,6 +30,11 @@ public:
   Blob* padded;
   Blob* conv_weight;
   Blob* bias_weight;
+#ifdef IM2COL_CONV
+  Blob* col_m;
+  void im2col(Blob* bottom);
+  void gemm(Blob* top);
+#endif
 };
 
 
