@@ -1,8 +1,6 @@
 *.caffemodel
 *.bak
 *.o
-*.pb.cc
-*.pb.h
 *.model
 build/
 .vscode/
