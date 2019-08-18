@@ -4,5 +4,7 @@
 *.pb.cc
 *.pb.h
 *.model
+*.bin
 build/
+install/
 .vscode/

@@ -104,4 +104,11 @@ cd 根目录/build/examples
 ./classification param model img
 ```
 
+5. 生成install
+
+```
+cd 根目录/build
+make install
+```
+
 

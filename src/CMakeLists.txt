@@ -1,7 +1,10 @@
 cmake_minimum_required(VERSION 2.8)
-set(fcnn_SRCs blob.cpp layer.cpp net.cpp create_layer.cpp 
-              layers/relu.cpp layers/input.cpp layers/maxpool.cpp layers/convolution.cpp 
-              layers/global_avepool.cpp layers/inner_product.cpp layers/scale.cpp layers/element_wise.cpp 
-              layers/softmax.cpp)
+file(GLOB fcnn_SRCs *.cpp layers/*.cpp)
 add_library(lib_src STATIC ${fcnn_SRCs})
 set_target_properties(lib_src PROPERTIES OUTPUT_NAME "fcnn")
+
+# add install commands
+install(TARGETS lib_src
+        ARCHIVE DESTINATION ${CMAKE_BINARY_DIR}/install/lib)
+install(FILES blob.h layer.h net.h
+        DESTINATION ${CMAKE_BINARY_DIR}/install/include)
